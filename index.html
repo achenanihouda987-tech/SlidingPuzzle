@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sliding Puzzle - Neon Edition</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- TOP SECTION -->
+        <header class="top-section">
+            <div class="crown-icon">
+                <i class="fa-solid fa-crown"></i>
+            </div>
+            <h1 class="main-title">SLIDING PUZZLE</h1>
+            <p class="subtitle">Rebuild the image piece by piece</p>
+            <div class="separator">
+                <div class="line"></div>
+                <div class="glow-dot"></div>
+                <div class="line"></div>
+            </div>
+        </header>
+
+        <!-- CONTROL BAR -->
+        <nav class="control-bar panel-glass">
+            <div class="control-group">
+                <div class="select-wrapper neon-outline">
+                    <select id="difficulty-select">
+                        <option value="3">3 &times; 3</option>
+                        <option value="4">4 &times; 4</option>
+                        <option value="5">5 &times; 5</option>
+                    </select>
+                    <i class="fa-solid fa-chevron-down select-icon"></i>
+                </div>
+                
+                <div class="select-wrapper neon-outline">
+                    <select id="theme-select">
+                        <option value="forest">&#127794; Forest</option>
+                        <option value="cyber">🤖 Cyber City</option>
+                        <option value="space">🚀 Deep Space</option>
+                    </select>
+                    <i class="fa-solid fa-chevron-down select-icon"></i>
+                </div>
+            </div>
+
+            <div class="control-group center-actions">
+                <button id="start-btn" class="btn primary-btn glow-hover">
+                    <i class="fa-solid fa-play"></i> START GAME
+                </button>
+                <button id="shuffle-btn" class="btn secondary-btn glow-hover">
+                    <i class="fa-solid fa-shuffle"></i> SHUFFLE
+                </button>
+            </div>
+
+            <div class="control-group right-actions">
+                <label for="image-upload" class="btn secondary-btn glow-hover upload-btn">
+                    <i class="fa-solid fa-upload"></i> CUSTOM IMAGE
+                </label>
+                <input type="file" id="image-upload" accept="image/*" hidden>
+            </div>
+        </nav>
+
+        <!-- MAIN LAYOUT -->
+        <main class="main-layout">
+            <!-- LEFT PANEL: GAME STATS -->
+            <aside class="left-panel panel-glass">
+                <h2 class="panel-title">GAME STATS</h2>
+                <div class="stats-container">
+                    <div class="stat-card moves-card">
+                        <div class="stat-icon"><i class="fa-solid fa-arrows-turn-to-dots"></i></div>
+                        <div class="stat-info">
+                            <span class="stat-label">Moves</span>
+                            <span class="stat-value" id="moves-counter">0</span>
+                        </div>
+                    </div>
+                    <div class="stat-card timer-card">
+                        <div class="stat-icon"><i class="fa-solid fa-stopwatch"></i></div>
+                        <div class="stat-info">
+                            <span class="stat-label">Timer</span>
+                            <span class="stat-value" id="timer-display">00:00</span>
+                        </div>
+                    </div>
+                    <div class="stat-card score-card">
+                        <div class="stat-icon"><i class="fa-solid fa-trophy"></i></div>
+                        <div class="stat-info">
+                            <span class="stat-label">Best Score</span>
+                            <span class="stat-value" id="best-score">-</span>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- CENTER PANEL: PUZZLE BOARD -->
+            <section class="center-panel">
+                <div class="board-container panel-glass neon-outline-large" id="board-container">
+                    <div class="puzzle-grid" id="puzzle-grid">
+                        <!-- Tiles injected via JS -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- RIGHT PANEL: TARGET IMAGE -->
+            <aside class="right-panel panel-glass">
+                <h2 class="panel-title">TARGET IMAGE</h2>
+                <div class="target-preview neon-outline">
+                    <img id="target-image" src="assets/forest.png" alt="Target Puzzle Image">
+                    <div class="preview-overlay">
+                        <i class="fa-solid fa-eye"></i>
+                    </div>
+                </div>
+                
+                <div class="progress-section">
+                    <div class="progress-header">
+                        <span class="progress-label">Completion</span>
+                        <span class="progress-percentage" id="progress-text">0%</span>
+                    </div>
+                    <div class="progress-bar-container">
+                        <div class="progress-fill" id="progress-fill"></div>
+                    </div>
+                </div>
+
+                <div class="theme-info-card">
+                    <div class="theme-info-icon"><i class="fa-solid fa-image"></i></div>
+                    <div class="theme-info-text">
+                        <h3 id="current-theme-name">&#127794; Forest</h3>
+                        <p id="current-grid-size">3 &times; 3 Grid</p>
+                    </div>
+                </div>
+            </aside>
+        </main>
+
+        <!-- BOTTOM BAR -->
+        <footer class="bottom-bar">
+            <button class="btn icon-text-btn glow-hover left-btn">
+                <i class="fa-solid fa-circle-question"></i> HOW TO PLAY
+            </button>
+            
+            <p class="motivational-text">
+                "Every move brings you closer to the complete picture"
+            </p>
+            
+            <div class="right-toggles">
+                <button class="icon-btn glow-hover" id="sound-toggle">
+                    <i class="fa-solid fa-volume-high"></i>
+                </button>
+                <button class="icon-btn glow-hover" id="theme-toggle">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+            </div>
+        </footer>
+    </div>
+    
+    <!-- Particle Canvas for effects -->
+    <canvas id="particle-canvas"></canvas>
+
+    <script src="script.js"></script>
+</body>
+</html>

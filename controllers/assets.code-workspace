@@ -1,0 +1,28 @@
+{
+	"folders": [
+		{
+			"path": "../assets"
+		},
+		{
+			"path": "."
+		},
+		{
+			"path": "../core"
+		},
+		{
+			"path": "../docs"
+		},
+		{
+			"path": "../models"
+		},
+		{
+			"path": "../services"
+		},
+		{
+			"path": "../tests"
+		},
+		{
+			"path": "../ui"
+		}
+	]
+}
